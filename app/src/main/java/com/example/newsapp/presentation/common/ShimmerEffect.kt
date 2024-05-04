@@ -28,7 +28,7 @@ import com.example.newsapp.presentation.Dimensions.MediumPadding1
 
 
 fun Modifier.shimmerEffect() = composed{
-    val transition = rememberInfiniteTransition()
+    val transition = rememberInfiniteTransition(label = "")
     val alpha = transition.animateFloat(
         initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1000),

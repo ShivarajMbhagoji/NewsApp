@@ -3,8 +3,8 @@ package com.example.newsapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import com.example.newsapp.data.remote.NewsPagingSource
+import com.example.newsapp.data.remote.SearchNewsPagingSource
 import com.example.newsapp.data.remote.dto.NewsApi
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.domain.repository.NewsRepository
@@ -21,4 +21,19 @@ class NewsRepoImpl(
             }
         ).flow
     }
+
+    override fun searchNews(searchQuery:String,sources: List<String>): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(
+                    searchQuery=searchQuery,
+                    newsApi=newsApi,
+                    sources = sources.joinToString(separator = ",")
+                )
+            }
+        ).flow
+    }
+
+
 }
