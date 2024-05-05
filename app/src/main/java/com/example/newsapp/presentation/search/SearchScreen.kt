@@ -11,6 +11,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.presentation.Dimensions.MediumPadding1
 import com.example.newsapp.presentation.common.ArticlesList
 import com.example.newsapp.presentation.common.SearchBar
+import com.example.newsapp.presentation.navgraph.Route
 
 @Composable
 fun SearchScreen(
@@ -37,7 +38,6 @@ fun SearchScreen(
             ArticlesList(
                 articles = articles,
                 onClick = {
-                    //TODO: Navigate to details screen
                 }
             )
         }

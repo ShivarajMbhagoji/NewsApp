@@ -27,8 +27,8 @@ class NewsRepoImpl(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 SearchNewsPagingSource(
-                    searchQuery=searchQuery,
                     newsApi=newsApi,
+                    searchQuery=searchQuery,
                     sources = sources.joinToString(separator = ",")
                 )
             }
