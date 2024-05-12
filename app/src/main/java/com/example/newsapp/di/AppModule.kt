@@ -1,6 +1,10 @@
 package com.example.newsapp.di
 
 import android.app.Application
+import androidx.room.Room
+import com.example.newsapp.data.local.NewsDao
+import com.example.newsapp.data.local.NewsDatabase
+import com.example.newsapp.data.local.NewsTypeConvertor
 import com.example.newsapp.data.remote.dto.NewsApi
 import com.example.newsapp.data.repository.NewsRepoImpl
 import com.example.newsapp.domain.manager.LocalUserManagerImpl
@@ -9,9 +13,13 @@ import com.example.newsapp.domain.usecases.cases.ReadAppEntry
 import com.example.newsapp.domain.usecases.cases.SaveAppEntry
 import com.example.newsapp.domain.manager.LocalUserManager
 import com.example.newsapp.domain.repository.NewsRepository
+import com.example.newsapp.domain.usecases.news.DeleteArticle
+import com.example.newsapp.domain.usecases.news.GetArticle
+import com.example.newsapp.domain.usecases.news.GetArticles
 import com.example.newsapp.domain.usecases.news.GetNews
 import com.example.newsapp.domain.usecases.news.NewsUseCases
 import com.example.newsapp.domain.usecases.news.SearchNews
+import com.example.newsapp.domain.usecases.news.UpsertArticle
 import com.example.newsapp.utils.constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -59,11 +67,38 @@ object AppModule{
     @Provides
     @Singleton
     fun providesNewsUseCases(
+        newsDao: NewsDao,
         newsRepository: NewsRepository
     ):NewsUseCases{
         return NewsUseCases(
             getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository)
+            searchNews = SearchNews(newsRepository),
+            upsertArticle = UpsertArticle(newsDao),
+            deleteArticle = DeleteArticle(newsDao),
+            getArticle = GetArticle(newsDao),
+            getArticles = GetArticles(newsDao)
         )
     }
+
+
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ): NewsDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = NewsDatabase::class.java,
+            name = "news_db"
+        ).addTypeConverter(NewsTypeConvertor())
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ): NewsDao = newsDatabase.newsDao
+
 }

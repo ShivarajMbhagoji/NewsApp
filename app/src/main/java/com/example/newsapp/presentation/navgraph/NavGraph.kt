@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.newsapp.presentation.bookmark.BookmarkScreen
+import com.example.newsapp.presentation.bookmark.bookmarkViewModel
 import com.example.newsapp.presentation.home.HomeScreen
 import com.example.newsapp.presentation.home.HomeViewModel
 import com.example.newsapp.presentation.onboarding.OnboardingViewModel
@@ -42,8 +44,12 @@ fun navGraph(
 //                HomeScreen(articles = articles, navigate = {})
 
 
-                val viewModel: SearchViewModel = hiltViewModel()
-                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent )
+//                val viewModel: SearchViewModel = hiltViewModel()
+//                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent )
+
+                val viewModel: bookmarkViewModel = hiltViewModel()
+                BookmarkScreen(state = viewModel.state.value, navigate = {})
+
             }
         }
     }
