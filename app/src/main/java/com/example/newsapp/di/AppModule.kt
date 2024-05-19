@@ -19,6 +19,7 @@ import com.example.newsapp.domain.usecases.news.GetArticles
 import com.example.newsapp.domain.usecases.news.GetNews
 import com.example.newsapp.domain.usecases.news.NewsUseCases
 import com.example.newsapp.domain.usecases.news.SearchNews
+import com.example.newsapp.domain.usecases.news.SelectArticle
 import com.example.newsapp.domain.usecases.news.UpsertArticle
 import com.example.newsapp.utils.constants.BASE_URL
 import dagger.Module
@@ -61,8 +62,9 @@ object AppModule{
     @Provides
     @Singleton
     fun providesNewsRepository(
-        newsApi: NewsApi
-    ):NewsRepository=NewsRepoImpl(newsApi)
+        newsApi: NewsApi,
+        newsDao: NewsDao
+    ):NewsRepository=NewsRepoImpl(newsApi,newsDao)
 
     @Provides
     @Singleton
@@ -73,10 +75,11 @@ object AppModule{
         return NewsUseCases(
             getNews = GetNews(newsRepository),
             searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsDao),
-            deleteArticle = DeleteArticle(newsDao),
-            getArticle = GetArticle(newsDao),
-            getArticles = GetArticles(newsDao)
+            upsertArticle = UpsertArticle(newsRepository),
+            deleteArticle = DeleteArticle(newsRepository),
+            getArticle = GetArticle(newsRepository),
+            getArticles = GetArticles(newsRepository),
+            selectArticle = SelectArticle(newsRepository)
         )
     }
 
