@@ -1,4 +1,4 @@
-package com.example.newsapp.domain.manager
+package com.example.newsapp.data.manager
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.newsapp.domain.manager.LocalUserManager
 import com.example.newsapp.utils.constants
 import com.example.newsapp.utils.constants.USER_SETTINGS
 import kotlinx.coroutines.flow.Flow

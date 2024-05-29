@@ -7,7 +7,7 @@ import com.example.newsapp.data.local.NewsDatabase
 import com.example.newsapp.data.local.NewsTypeConvertor
 import com.example.newsapp.data.remote.dto.NewsApi
 import com.example.newsapp.data.repository.NewsRepoImpl
-import com.example.newsapp.domain.manager.LocalUserManagerImpl
+import com.example.newsapp.data.manager.LocalUserManagerImpl
 import com.example.newsapp.domain.usecases.cases.AppEntryUseCases
 import com.example.newsapp.domain.usecases.cases.ReadAppEntry
 import com.example.newsapp.domain.usecases.cases.SaveAppEntry
